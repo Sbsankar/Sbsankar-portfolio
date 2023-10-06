@@ -16,6 +16,65 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+    <style>
+        /* CSS for Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle input[type="checkbox"] {
+            display: none;
+        }
+
+        .dark-mode-toggle label {
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: #888;
+            border-radius: 13px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode-toggle label::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            left: 1px;
+            top: 1px;
+            transition: 0.3s;
+        }
+
+        .dark-mode-toggle input[type="checkbox"]:checked+label {
+            background: #4CAF50;
+        }
+
+        .dark-mode-toggle input[type="checkbox"]:checked+label::before {
+            transform: translateX(24px);
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* Add specific dark mode styles here as needed */
+
+        /* Project Box Styles */
+        .project-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,7 +95,12 @@
                 <a href="#experience" class="nav-item nav-link">Experience</a>
                 <a href="#projects" class="nav-item nav-link">Projects</a>
                 <a href="#contact" class="nav-item nav-link">Contact</a>
+                <a href="#resume" class="nav-item nav-link">Resume</a> <!-- Added Resume link -->
             </div>
+        </div>
+        <div class="dark-mode-toggle">
+            <input type="checkbox" id="dark-mode-switch">
+            <label for="dark-mode-switch"></label>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -188,18 +252,14 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h4>Varnish Cache Implementation with Nginx to Reduce Server Load Time</h4>
-                <p>
-                    Spearheaded the design and implementation of a Varnish cache solution, reducing 45% in server
-                    response times.
-                </p>
+                <div class="project-box">
+                    <h4>Varnish Cache Implementation with Nginx to Reduce Server Load Time</h4>
+                </div>
             </div>
             <div class="col-lg-6">
-                <h4>Dockerized Web Application and Auto-Scaling based on API Requests</h4>
-                <p>
-                    Led the development of a Dockerized web application, reducing deployment time from hours to under 10
-                    minutes.
-                </p>
+                <div class="project-box">
+                    <h4>Dockerized Web Application and Auto-Scaling based on API Requests</h4>
+                </div>
             </div>
         </div>
     </div>
@@ -235,6 +295,25 @@
     </div>
     <!-- Contact End -->
 
+    <!-- Resume Start -->
+    <div class="container-fluid py-5" id="resume">
+        <div class="container">
+            <div class="position-relative d-flex align-items-center justify-content-center">
+                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Resume</h1>
+                <h1 class="position-absolute text-uppercase text-primary">Resume</h1>
+            </div>
+            https://drive.google.com/file/d/19jSSD7GJmi3kalwaM6AJW_mAe338XS94/view?usp=drive_link
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <!-- Example: Embedding a PDF -->
+                    <embed src="https://example.com/your-resume.pdf" type="application/pdf" width="100%" height="500px">
+                    <!-- Replace the "src" attribute with the actual URL of your resume PDF -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resume End -->
+
     <!-- Footer Start -->
     <footer class="container-fluid bg-dark text-white py-4">
         <div class="container text-center">
@@ -244,6 +323,47 @@
     </footer>
     <!-- Footer End -->
 
+    <script>
+        // Smooth scrolling when clicking on navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 50,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const darkModeSwitch = document.getElementById('dark-mode-switch');
+        const body = document.body;
+
+        // Check the user's preferred mode (light or dark) using the "prefers-color-scheme" media query
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Initialize dark mode based on user preference or a previous selection
+        if (localStorage.getItem('dark-mode') === 'true' || prefersDark) {
+            body.classList.add('dark-mode');
+            darkModeSwitch.checked = true;
+        }
+
+        // Toggle dark mode when the switch is clicked
+        darkModeSwitch.addEventListener('change', () => {
+            if (darkModeSwitch.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('dark-mode', 'true');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('dark-mode', 'false');
+            }
+        });
+    </script>
 </body>
 
 </html>
